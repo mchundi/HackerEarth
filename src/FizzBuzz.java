@@ -12,7 +12,7 @@ public class FizzBuzz{
 	}
 	
 	static void printFizzBuzz(int n){
-		for(int i=1;i<=n;i++){
+		for(int i=1;i<=10000;i++){
 			if(i%3==0 && i%5==0)
 				System.out.println("FizzBuzz");
 			else if(i%3==0)

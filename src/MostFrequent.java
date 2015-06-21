@@ -5,7 +5,7 @@ public class MostFrequent{
 	
 	public static void main(String args[]){
 		Scanner sc = new Scanner(System.in);
-		HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+		LinkedHashMap<Integer,Integer> hm = new LinkedHashMap<Integer,Integer>();
 		
 		int n = sc.nextInt();
 		while(n-- !=0){
@@ -16,11 +16,18 @@ public class MostFrequent{
 			else
 				hm.put(i, 1);
 		}
+		int max=0;
 		Set<Entry<Integer, Integer>> s = hm.entrySet(); 
-		Iterator<Entry<Integer, Integer>> i = s.iterator(); 
+		Iterator<Entry<Integer, Integer>> i = s.iterator();
+		Entry<Integer, Integer> e = null;
+		Entry<Integer, Integer> res = null;
 		while(i.hasNext()){
-			//Entry<Integer, Integer> e = i.next();
-			//if(e.getValue())
+			e = i.next();
+			if(max<e.getValue()){
+				max = e.getValue();
+				res=e;
+			}
 		}
+		System.out.print(res.getKey());
 	}
 }
