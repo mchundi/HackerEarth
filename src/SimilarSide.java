@@ -1,25 +1,32 @@
-import java.io.*;
+import java.util.*;
 
 public class SimilarSide{
 	
 	public static void main(String args[]) throws Exception{
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int tcCount = Integer.parseInt(br.readLine());
+		Scanner sc = new Scanner(System.in);
+		int tcCount = sc.nextInt();
 		while(tcCount!=0){
-			System.out.println(sameAdjacentChar(br.readLine()));
+			List<Character> s = new ArrayList<Character>();
+			String str = sc.next();
+			for(int i=0;i<str.length();i++)
+				s.add(str.charAt(i));
+			System.out.println(sameAdjacentChar(s));
 			tcCount--;
 		}
 	}
 	
-	static String sameAdjacentChar(String inStr){
-		if(inStr.length()<=1)
-			return inStr;
-		for(int i=0;i<inStr.length()-1;i++){
-			if(inStr.charAt(i)==inStr.charAt(i+1)){
-				inStr = sameAdjacentChar(inStr.substring(0,i)+inStr.substring(i+1,inStr.length()));
+	static int sameAdjacentChar(List<Character> c){
+		int cnt=0;
+		if(c.size()<=1)
+			return 0;
+		
+		for(int i=0;i<c.size()-1;i++){
+			if(c.get(i)==c.get(i+1)){
+				cnt++;
+				c.remove(i);
+				cnt=cnt+sameAdjacentChar(c);
 			}
 		}
-		return inStr;
+		return cnt;
 	}
 }

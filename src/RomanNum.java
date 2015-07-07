@@ -29,17 +29,18 @@ public class RomanNum{
 	    }
 	    System.out.println(res);
 	  }
-	  public static String repeat(String s, int n) {
-	    if(s == null) {
+	public static String repeat(String s, int n) {
+	    if(s == null) 
 	        return null;
-	    }
 	    final StringBuilder sb = new StringBuilder();
 	    for(int i = 0; i < n; i++) {
 	        sb.append(s);
 	    }
 	    return sb.toString();
 	  }
+
 }
+
 
 /***Smarter code
  * String roman[] = { "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
@@ -64,6 +65,6 @@ public class RomanNum{
         }
 	}
  
- */
+ 
  */
 		
