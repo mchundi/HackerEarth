@@ -7,6 +7,7 @@
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Stack;
 
 
 public class ExpressionParser{
@@ -15,34 +16,53 @@ public class ExpressionParser{
 		//Read the expression
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String parserString = br.readLine();
-		System.out.println(isBalanced(parserString));
+		
+		System.out.println( isBalanced(parserString) ? "Balanced" : "Not Balanced");
 	}
 	
 	//This method returns true if the expression has balanced parentheses AND balanced square brackets,
 	static boolean isBalanced(String str){
-		
-		boolean parenthesis = isParenthesisBalanced(str,'(',')');
-		boolean sqParenthesis = isParenthesisBalanced(str,'[',']');
-		
-		if(parenthesis && sqParenthesis)
-			return true;
-		else
+		//if input is an empty string return false
+		if(str==null)
 			return false;
-	}
-	
-	//returns true if the open and close parenthesis are matching
-	static boolean isParenthesisBalanced(String inStr,char openCh, char closeCh){
-		int openParanthesisIndex = inStr.indexOf(openCh);
-		int	closeParanthesisIndex = inStr.indexOf(closeCh);
-		
-		if(openParanthesisIndex>=0 && closeParanthesisIndex>0 && openParanthesisIndex<closeParanthesisIndex){
-			isParenthesisBalanced(inStr.substring(0,openParanthesisIndex)
-					              +inStr.substring(openParanthesisIndex+1,closeParanthesisIndex)
-					              +inStr.substring(closeParanthesisIndex+1,inStr.length())
-					              ,openCh,closeCh);
-			return true;
-		}	
-		else
-			return false;
+		else{
+			Stack<Character> braceStack = new Stack<Character>();
+			char c;
+			for(int i=0;i<str.length();i++){
+				c=str.charAt(i);
+				//push to stack if the incoming element is an open parenthesis
+				if(c=='('){	
+					braceStack.push(c);
+				}
+				//if the incoming character is a closing parenthesis and if the stack is not empty, expression is not balance.
+				else if(c==')'){
+					if(braceStack.isEmpty() )
+						return false;
+					//if the incoming character is a closing parenthesis and if the stack top is an open parenthesis,
+					//pop the element
+					else if(braceStack.peek() == '(')
+						braceStack.pop();
+				}
+				//push to stack if the incoming element is an open square parenthesis
+				else if(c=='['){
+					braceStack.push(c);
+				}
+				//if the incoming character is a closing square parenthesis and if the stack is not empty, expression is not balance.
+				else if(c==']'){
+					if(braceStack.isEmpty() )
+						return false;
+					//if the incoming character is a closing parenthesis and if the stack top is an open square parenthesis,
+					//pop the element
+					else if(braceStack.peek() == '[')
+						braceStack.pop();
+				}
+			}
+			if(braceStack.isEmpty())
+				return true;
+			else
+				return false;
+		}
 	}
 }
+		
+		
